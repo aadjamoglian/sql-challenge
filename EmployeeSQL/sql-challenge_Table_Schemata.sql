@@ -13,7 +13,7 @@ create table employees (
 	first_name VARCHAR,
 	last_name VARCHAR,
 	gender VARCHAR(1),
-	hire_date VARCHAR);
+	hire_date DATE);
 	
 create table titles (
 	emp_no INT references employees (emp_no),
@@ -58,8 +58,6 @@ inner join salaries on
 salaries.emp_no = employees.emp_no
 
 -- #2 
-ALTER TABLE employees
-ALTER COLUMN hire_date TYPE DATE using ("hire_date"::text::date);
 
 select * from employees
 where EXTRACT(year FROM "hire_date") = 1986
