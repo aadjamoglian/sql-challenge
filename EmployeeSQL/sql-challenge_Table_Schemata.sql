@@ -1,47 +1,70 @@
 -- SQL Homework Arthur Adjamoglian
 
-drop table if exists departments,
-drop table if exists dept_emp,
-drop table if exists dept_manager,
-drop table if exists employees,
-drop table if exists salaries,
-drop table if exists titles;
+CREATE TABLE "employees" (
+    "emp_no" INT   NOT NULL,
+    "birth_date" DATE   NOT NULL,
+    "first_name" VARCHAR   NOT NULL,
+    "last_name" VARCHAR   NOT NULL,
+    "gender" VARCHAR(1)   NOT NULL,
+    "hire_date" DATE   NOT NULL,
+    CONSTRAINT "pk_employees" PRIMARY KEY (
+        "emp_no"
+     )
+);
 
-create table employees (
-	emp_no INT primary key,
-	birth_date DATE,
-	first_name VARCHAR,
-	last_name VARCHAR,
-	gender VARCHAR(1),
-	hire_date DATE);
-	
-create table titles (
-	emp_no INT references employees (emp_no),
-	title VARCHAR,
-	from_date DATE,
-	to_date DATE);
-	
-create table salaries (
-	emp_no INT references employees (emp_no),
-	salary INT,
-	from_date DATE,
-	to_date DATE);
-	
-create table departments (
-	dept_no VARCHAR primary key,
-	dept_name VARCHAR);
-	
-create table dept_emp (
-	emp_no INT references employees (emp_no),
-	dept_no VARCHAR references departments (dept_no),
-	from_date DATE,
-	to_date DATE);
-	
-create table dept_manager (
-	dept_no VARCHAR references departments (dept_no),
-	emp_no INT references employees (emp_no),
-	from_date DATE,
-	to_date DATE);
+CREATE TABLE "departments" (
+    "dept_no" VARCHAR   NOT NULL,
+    "dept_name" VARCHAR   NOT NULL,
+    CONSTRAINT "pk_departments" PRIMARY KEY (
+        "dept_no"
+     )
+);
+
+CREATE TABLE "titles" (
+    "emp_no" INT   NOT NULL,
+    "title" VARCHAR   NOT NULL,
+    "from_date" DATE   NOT NULL,
+    "to_date" DATE   NOT NULL
+);
+
+CREATE TABLE "salaries" (
+    "emp_no" INT   NOT NULL,
+    "salary" INT   NOT NULL,
+    "from_date" DATE   NOT NULL,
+    "to_date" DATE   NOT NULL
+);
+
+CREATE TABLE "dept_emp" (
+    "emp_no" INT   NOT NULL,
+    "dept_no" VARCHAR   NOT NULL,
+    "from_date" DATE   NOT NULL,
+    "to_date" DATE   NOT NULL
+);
+
+CREATE TABLE "dept_manager" (
+    "dept_no" VARCHAR   NOT NULL,
+    "emp_no" INT   NOT NULL,
+    "from_date" DATE   NOT NULL,
+    "to_date" DATE   NOT NULL
+);
+
+ALTER TABLE "titles" ADD CONSTRAINT "fk_titles_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "employees" ("emp_no");
+
+ALTER TABLE "salaries" ADD CONSTRAINT "fk_salaries_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "employees" ("emp_no");
+
+ALTER TABLE "dept_emp" ADD CONSTRAINT "fk_dept_emp_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "employees" ("emp_no");
+
+ALTER TABLE "dept_emp" ADD CONSTRAINT "fk_dept_emp_dept_no" FOREIGN KEY("dept_no")
+REFERENCES "departments" ("dept_no");
+
+ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_emp_no" FOREIGN KEY("emp_no")
+REFERENCES "employees" ("emp_no");
+
+ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_dept_no" FOREIGN KEY("dept_no")
+REFERENCES "departments" ("dept_no");
 	
 	
 --------------------------------------------
