@@ -56,7 +56,7 @@ As you examine the data, you are overcome with a creeping suspicion that the dat
 
 2. Create a bar chart of average salary by title.
 
-![Bar Chart](sql-challenge_SalaryVsTitle.png)
+![Bar Chart](EmployeeSQL/sql-challenge_SalaryVsTitle.png)
 
 3. Include a technical report in markdown format, outlining the data engineering steps taken in this assignment.
 
